@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Kavya-SK-Stack/Authendication-Authorization-Task/issues"
   },
-  "homepage": "https://github.com/Kavya-SK-Stack/Authendication-Authorization-Task#readme"
+  "homepage": "https://github.com/Kavya-SK-Stack/Authendication-Authorization-Task#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
