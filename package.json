@@ -1,0 +1,19 @@
+{
+  "name": "backend-task",
+  "version": "1.0.0",
+  "description": "Create Back end",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kavya-SK-Stack/Authendication-Authorization-Task.git"
+  },
+  "author": "Kavya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kavya-SK-Stack/Authendication-Authorization-Task/issues"
+  },
+  "homepage": "https://github.com/Kavya-SK-Stack/Authendication-Authorization-Task#readme"
+}
