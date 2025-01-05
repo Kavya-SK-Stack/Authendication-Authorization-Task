@@ -6,17 +6,17 @@ const userSchema = new mongoose.Schema({
     password: String,
     role: {
         type: String,
-        enum: ['receptionist', 'manager', 'admin'],
-        default: 'receptionist'
+        enum: ['user', 'admin'],
+        default: 'user'
     },
-    createdAt: {
+    created_at: {
         type: Date,
         dafault: Date.now
     },
-    updatedAt: {
+    updated_at: {
         type: Date,
         default: Date.now
     },
 });
 
-mongoose.model('User', userSchema, 'users');
+module.exports = mongoose.model('User', userSchema, 'users');
