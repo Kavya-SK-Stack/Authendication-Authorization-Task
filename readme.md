@@ -11,18 +11,14 @@ A RESTful API for user authentication using Node.js, Express, MongoDB, and JWT.
 - Error handling
 - MVC architecture
 
-## API Endpoints
-
-### Authentication
-
 #### Register User
 - **POST** `/api/auth/register`
 - Body:
   ```json
   {
-    "username": "johndoe",
-    "email": "john@example.com",
-    "password": "password123"
+    "username": "Kavya",
+    "email": "Kavya@gmail.com",
+    "password": "123456"
   }
   ```
 
@@ -31,32 +27,57 @@ A RESTful API for user authentication using Node.js, Express, MongoDB, and JWT.
 - Body:
   ```json
   {
-    "email": "john@example.com",
-    "password": "password123"
+    "email": "Kavya@example.com",
+    "password": "123456"
   }
   ```
 
 ### User
 
-#### Get Current User
+```json
+
+{
+     "name": String,
+    "email": String,
+    "password": String,
+    "role": {
+        "type": String,
+        "enum": ['user', 'admin'],
+        "default": 'user'
+    },
+    "created_at": { type: Date, default: Date.now },
+    "updated_at": { type: Date, default: Date.now }
+}
+
+### Get Current User
 - **GET** `/api/users/me`
 - Headers:
   ```
   Authorization: Bearer <token>
   ```
 
-## Setup
+### Setup
 
 1. Install dependencies:
    ```bash
    npm install
    ```
+   npm install bcrypt
+   ```
+   npm install dotenv
+   ```
+   npm install express
+   ```
+   npm install jsonwebtoken
+   ```
+   npm install mongoose
+   
 
 2. Create a .env file with the following variables:
    ```
-   PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/auth-api
-   JWT_SECRET=your-secret-key
+   PORT=3003
+   MONGODB_URI=mongodb+srv://Kavya:kavya2atlas@atlascloud.3mnod.mongodb.net/Back-end?retryWrites=true&w=majority&appName=AtlasCloud
+   JWT_SECRET_KEY=apple
    ```
 
 3. Start the server:
@@ -66,4 +87,4 @@ A RESTful API for user authentication using Node.js, Express, MongoDB, and JWT.
 
 ## Testing
 
-Run tests using
+Postman tests using
