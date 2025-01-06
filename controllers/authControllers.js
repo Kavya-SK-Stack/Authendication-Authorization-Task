@@ -1,6 +1,8 @@
 
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const { SECRET_KEY } = require("../utils/config");
 
 
 const authController = {
@@ -8,11 +10,14 @@ const authController = {
     try {
       // Get user input
       const { name, email, password } = request.body;
+
       // check if user with the same email exists
       const user = await User.findOne({ email });
+
       if (user) {
         return response.status(400).json({ message: "User already exists" });
       }
+
       const passwordHash = await bcrypt.hash(password, 10);
     
       // create user object
@@ -21,8 +26,10 @@ const authController = {
         email,
         password:passwordHash
       });
+
       // save user
       await newUser.save();
+
       // send a response
       response.json({ message: "User registered successfully" });
     } catch (error) {
@@ -33,24 +40,43 @@ const authController = {
   login: async (request, response) => {
     try {
       // get the email and password from request body
-      // const { email, password } = request.body;
+      const { email, password } = request.body;
+
       // check if user exists
-      // const user = await User.findOne({ email });
+      const user = await User.findOne({ email });
+
       // if the user does not exist, return an error message
-      // if (!user) {
-      //     return response.status(400).json({ message: 'User does not exist' });
-      // }
+      if (!user) {
+          return response.status(400).json({ message: 'User does not exist' });
+      }
+
       // compare the password
-      // const isMatch = await bcrypt.compare(password, user.password);
+      const isMatch = await bcrypt.compare(password, user.password);
+
       // if the password does not match, return an error message
-      // if (!isMatch) {
-      //     return response.status(400).json({ message: 'Invalid credentials' });
-    } catch (error) {
+      if (!isMatch) {
+        return response.status(400).json({ message: 'Invalid credentials' });
+      }
+
+      // generate a token
+      const token = await jwt.sign(
+        { id: user._id },
+        SECRET_KEY
+        // {expiresIn: '1h'}
+
+      );
+
+      // send a response
+      response.json ({ token, meassage: 'User logged in successfully!'})
+      
+      } catch (error) {
       response.status(500).json({ meassage: error.message });
     }
   },
+
   logout: async (request, response) => {
     try {
+
     } catch (error) {
       response.status(500).json({ message: error.message });
     }
@@ -58,6 +84,17 @@ const authController = {
 
   me: async (request, response) => {
     try {
+      // get the user id from the request object
+     
+        const user_id = request.user_id;
+
+    
+      // find the user
+      const user = await User.findById(user_id).select(' -created_at -updated_at');
+
+      // send the user object
+      response.json(user);
+
     } catch (error) {
       response.status(500).json({ message: error.message });
     }
